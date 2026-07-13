@@ -88,12 +88,12 @@ section { padding: 48px 28px; text-align: center; }
 
 /* ── 공통 섹션 요소 ── */
 .hero-caption {
-  /* 나눔손글씨 펜(손글씨체) · 오른쪽 정렬 · 짙은 회색. 손글씨라 크기 살짝 키움. */
-  margin-top: 8px;
+  /* 처음의 명조체(Nanum Myeongjo) · 살짝 작게 · 짙은 회색 · 오른쪽 정렬 */
+  margin-top: 12px;
   text-align: right;
-  font-family: "Nanum Pen Script", var(--font-body, sans-serif);
+  font-family: "Nanum Myeongjo", var(--font-head, serif);
   color: #444;
-  font-size: 1.15rem;
+  font-size: 0.85rem;
   letter-spacing: 0.01em;
 }
 .hero-cap { margin-top: 20px; }
