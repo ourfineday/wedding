@@ -115,7 +115,7 @@
         "</div>";
     }
     return (
-      '<h2 class="sec-title">모시는 글</h2>' +
+      '<h2 class="sec-title">저희, 결혼합니다</h2>' +
       '<p class="greeting-body">' + body + "</p>" +
       hosts
     );

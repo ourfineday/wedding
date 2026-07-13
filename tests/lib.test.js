@@ -74,7 +74,7 @@ test("buildGreetingHTML: 본문 + 혼주(부모님) 표기", () => {
     bride: { name: "서연", parents: "이부·최모" },
   };
   const h = Lib.buildGreetingHTML(cfg);
-  assert.ok(h.includes("모시는 글"), "제목");
+  assert.ok(h.includes("저희, 결혼합니다"), "제목");
   assert.ok(h.includes("안녕<br />하세요"), "본문 줄바꿈");
   assert.ok(h.includes("김부·박모") && h.includes("민준"), "신랑 혼주");
   assert.ok(h.includes("이부·최모") && h.includes("서연"), "신부 혼주");
