@@ -56,8 +56,8 @@ section { padding: 48px 28px; text-align: center; }
 .photo {
   position: relative;
   width: 100%;
-  /* 커플 크롭 사진을 4:5 세로로 표시 (object-fit: cover). */
-  aspect-ratio: 4 / 5;
+  /* 사진 실제 비율(1080x1539)에 맞춰 아치가 안 잘리게 전체 표시. */
+  aspect-ratio: 1080 / 1539;
   background: var(--photo-bg, #e9e6e1);
   border-radius: var(--radius, 14px);
   overflow: hidden;
@@ -88,11 +88,13 @@ section { padding: 48px 28px; text-align: center; }
 
 /* ── 공통 섹션 요소 ── */
 .hero-caption {
-  margin-top: 14px;
-  font-family: var(--font-head, serif);
-  color: var(--muted, #8b8680);
-  letter-spacing: 0.08em;
-  font-size: 1rem;
+  /* 원본 스튜디오 캡션과 비슷하게: 명조체 · 짙은 회색 · 오른쪽(원래 오른쪽 아래 위치) */
+  margin-top: 12px;
+  text-align: right;
+  font-family: "Nanum Myeongjo", var(--font-head, serif);
+  color: #444;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
 }
 .hero-cap { margin-top: 20px; }
 .sec-title {
