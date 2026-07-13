@@ -22,13 +22,17 @@ test("render: ?theme=fresh 이면 data-theme=fresh", () => {
   assert.strictEqual(documentEl.getAttribute("data-theme"), "fresh");
 });
 
-test("render: 히어로에 이름 + 날짜 + 사진 + 캡션", () => {
+test("render: 히어로에 이름 + 날짜 + 사진 (캡션은 config에 따라)", () => {
   const { els, cfg } = loadApp();
   const hero = els.hero.innerHTML;
   assert.ok(hero.includes("탁성준 · 김혜린"), "이름");
   assert.ok(hero.includes("2026년 9월 12일 토요일 오후 5시"), "날짜");
   assert.ok(hero.includes('class="photo"'), "사진 박스");
-  assert.ok(hero.includes(cfg.heroCaption), "히어로 캡션");
+  if (cfg.heroCaption) {
+    assert.ok(hero.includes(cfg.heroCaption), "캡션(있을 때 표시)");
+  } else {
+    assert.ok(!hero.includes("hero-caption"), "캡션 없음(빈값)");
+  }
 });
 
 test("render: 인사말에 제목 + 본문 + 서브 사진 (부모님 빈칸이면 혼주 생략)", () => {
