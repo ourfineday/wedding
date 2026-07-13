@@ -26,3 +26,12 @@ test("render: D-Day 배지 + 문구 (라벨 형식)", () => {
   assert.ok(/D-\d+|D-DAY|D\+\d+/.test(d), "D-라벨 형식: " + d);
   assert.ok(/남았습니다|오늘|되었습니다/.test(d), "문구");
 });
+
+test("render: 일정 섹션에 제목 + 날짜 + 달력(17 강조)", () => {
+  const { els } = loadApp();
+  const s = els.schedule.innerHTML;
+  assert.ok(s.includes("예식 안내"), "제목");
+  assert.ok(s.includes("2026년 10월 17일"), "날짜");
+  assert.ok(s.includes('class="cal"'), "달력");
+  assert.ok(s.includes('class="cal-d on">17</span>'), "17 강조");
+});

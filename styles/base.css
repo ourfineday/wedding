@@ -82,3 +82,22 @@ section { padding: 48px 28px; text-align: center; }
   letter-spacing: 0.06em;
 }
 #dday .dday-msg { margin-top: 14px; color: var(--muted, #888); }
+
+/* ── 일정(달력) ── */
+.sched-date { margin-bottom: 18px; color: var(--fg, #333); }
+.cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.cal span { padding: 7px 0; font-size: 0.9rem; }
+.cal-h { color: var(--muted, #999); font-weight: 600; }
+.cal .sun { color: #d06a6a; }
+.cal-d.on {
+  background: var(--accent, #b08d57);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+}

@@ -35,10 +35,19 @@
     setInterval(paint, 60 * 1000); // 1분마다 재계산 → 자정 넘어가면 자동 갱신
   }
 
+  function renderSchedule() {
+    var el = document.getElementById("schedule");
+    el.innerHTML =
+      '<h2 class="sec-title">예식 안내</h2>' +
+      '<p class="sched-date">' + Lib.formatDate(CFG.wedding.datetime) + "</p>" +
+      Lib.buildCalendarHTML(CFG.wedding.datetime);
+  }
+
   function init() {
     renderHero();
     renderGreeting();
     renderDday();
+    renderSchedule();
   }
 
   document.addEventListener("DOMContentLoaded", init);
