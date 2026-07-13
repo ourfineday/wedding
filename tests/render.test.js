@@ -31,10 +31,10 @@ test("render: 히어로에 이름 + 날짜 + 사진", () => {
 });
 
 test("render: 인사말에 제목 + 본문 + 서브 사진 (부모님 빈칸이면 혼주 생략)", () => {
-  const { els } = loadApp();
+  const { els, cfg } = loadApp();
   const g = els.greeting.innerHTML;
   assert.ok(g.includes("저희, 결혼합니다"), "제목");
-  assert.ok(g.includes("축복해"), "인사말 본문");
+  assert.ok(g.includes(cfg.greeting.split("\n")[0]), "인사말 본문(첫 줄)");
   assert.ok(!g.includes("의 아들"), "혼주 생략(부모님 빈칸)");
   assert.ok(g.includes('class="photo"'), "서브 사진");
 });
