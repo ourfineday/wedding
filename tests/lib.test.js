@@ -64,6 +64,7 @@ test("buildVenueHTML: 키 없으면 지도 이미지 + 3버튼", () => {
   assert.ok(h.includes("OO홀"), "예식장명");
   assert.ok(h.includes("map-ph"), "지도 플레이스홀더");
   assert.ok(h.includes(">티맵</a>") && h.includes(">카카오맵</a>") && h.includes(">네이버지도</a>"), "3버튼");
+  assert.ok(h.includes('id="dir-tmap"'), "티맵 버튼 id(폴백 배선용)");
 });
 
 test("buildVenueHTML: 키 있으면 kakao-map 임베드 컨테이너", () => {

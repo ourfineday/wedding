@@ -85,7 +85,7 @@
       '<p class="venue-addr">' + w.address + "</p>" +
       mapInner +
       '<div class="dir-btns">' +
-      '<a class="dir-btn" href="' + L.tmap + '">티맵</a>' +
+      '<a class="dir-btn" id="dir-tmap" href="' + L.tmap + '">티맵</a>' +
       '<a class="dir-btn" href="' + L.kakao + '" target="_blank" rel="noopener">카카오맵</a>' +
       '<a class="dir-btn" href="' + L.naver + '" target="_blank" rel="noopener">네이버지도</a>' +
       "</div>"

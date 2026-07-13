@@ -18,6 +18,6 @@ window.WEDDING_CONFIG = {
   kakaoJsKey: "", // 카카오 JS 키(비우면 링크복사/버튼으로 동작, 지도는 이미지)
 
   // ── 표시 설정 ──
-  theme: "minimal", // minimal | classic | natural | reference (미리보기 후 확정)
-  previewMode: true, // true면 상단 테마 선택 바 표시. 테마 확정 후 false로.
+  theme: "minimal", // 확정 테마: minimal | classic | natural | reference
+  previewMode: false, // true로 바꾸면 상단에 테마 미리보기 바가 다시 나타납니다.
 };

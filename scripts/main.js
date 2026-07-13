@@ -52,7 +52,26 @@
     }
     el.hidden = false;
     el.innerHTML = Lib.buildVenueHTML(CFG);
+    wireTmapFallback();
     if (CFG.kakaoJsKey) loadKakaoMap(CFG.wedding);
+  }
+
+  // 티맵은 앱 전용(웹 주소 없음). PC/미설치면 안내 토스트, 휴대폰이면 앱으로 연결.
+  function wireTmapFallback() {
+    var a = document.getElementById("dir-tmap");
+    if (!a) return;
+    a.onclick = function (e) {
+      e.preventDefault();
+      var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+      if (!isMobile) {
+        toast("티맵은 휴대폰의 티맵 앱에서 열려요 (PC는 미지원)");
+        return;
+      }
+      window.location.href = a.getAttribute("href");
+      setTimeout(function () {
+        if (!document.hidden) toast("티맵 앱이 설치되어 있어야 열려요");
+      }, 1500);
+    };
   }
 
   // 카카오 키가 있을 때만 지도 SDK를 불러와 임베드. 실패해도 지도 이미지가 유지됨.

@@ -3,27 +3,22 @@ const test = require("node:test");
 const assert = require("node:assert");
 const { loadApp } = require("./dom-harness.js");
 
-test("render: 테마바 - previewMode true면 4버튼 노출", () => {
-  const { els } = loadApp();
+test("render: 확정 설정(기본)은 테마바 숨김 + minimal 적용", () => {
+  const { els, documentEl } = loadApp();
+  assert.strictEqual(els["theme-bar"].hidden, true, "바 숨김");
+  assert.strictEqual(documentEl.getAttribute("data-theme"), "minimal", "minimal 적용");
+});
+
+test("render: previewMode=true면 테마바 4버튼 노출", () => {
+  const { els } = loadApp({ config: (c) => { c.previewMode = true; } });
   assert.strictEqual(els["theme-bar"].hidden, false, "표시");
   const bar = els["theme-bar"].innerHTML;
   ["미니멀", "클래식", "내추럴", "레퍼런스"].forEach((l) => assert.ok(bar.includes(l), l));
 });
 
-test("render: ?theme=classic 이면 data-theme=classic", () => {
+test("render: ?theme=classic 이면 data-theme=classic (previewMode 무관)", () => {
   const { documentEl } = loadApp({ search: "?theme=classic" });
   assert.strictEqual(documentEl.getAttribute("data-theme"), "classic");
-});
-
-test("render: previewMode=false면 테마바 숨김 + config theme 적용", () => {
-  const { els, documentEl } = loadApp({
-    config: (c) => {
-      c.previewMode = false;
-      c.theme = "natural";
-    },
-  });
-  assert.strictEqual(els["theme-bar"].hidden, true, "바 숨김");
-  assert.strictEqual(documentEl.getAttribute("data-theme"), "natural", "config 테마");
 });
 
 test("render: 히어로에 이름 + 날짜 + 사진", () => {
