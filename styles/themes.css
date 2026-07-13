@@ -14,19 +14,25 @@
   --radius: 14px;
 }
 
-/* 싱그러운 새 출발 — 옅은 화이트그린 + 산뜻한 그린 포인트 */
+/* 싱그러운 새 출발 — 흰 배경 + 선명한 그린 포인트 */
 :root[data-theme="fresh"] {
   --font-head: "Noto Serif KR", serif;
   --font-body: "Noto Sans KR", system-ui, sans-serif;
-  --bg: #fbfdfb;
-  --bg-outer: #e9f1ea;
-  --fg: #2f3d35;
-  --muted: #8aa596;
-  --accent: #5fa576;
-  --line: #dceadf;
-  --photo-bg: #e7f1e9;
-  --photo-bg2: #dcebdf;
+  --bg: #ffffff;
+  --bg-outer: #ffffff;
+  --fg: #253b30;
+  --muted: #86a595;
+  --accent: #10b981;
+  --line: #e2efe7;
+  --photo-bg: #e7f6ee;
+  --photo-bg2: #daf0e3;
   --radius: 16px;
+}
+/* 싱그러움: D-Day 배지를 그린으로 채워 색을 확실히 보이게 */
+:root[data-theme="fresh"] #dday .dday-badge {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
 }
 
 :root[data-theme="classic"] {

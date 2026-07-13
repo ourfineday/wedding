@@ -124,7 +124,7 @@
   // 공유 버튼 HTML. 카카오톡 공유 버튼은 항상 노출(키 없으면 공유창/복사로 폴백).
   function buildShareHTML() {
     return (
-      '<h2 class="sec-title">마음 전하기</h2>' +
+      '<h2 class="sec-title">청첩장 공유하기</h2>' +
       '<div class="share-btns">' +
       '<button id="btn-kakao" class="share-btn kakao">카카오톡으로 공유하기</button>' +
       '<button id="btn-copy" class="share-btn">링크 복사</button>' +
