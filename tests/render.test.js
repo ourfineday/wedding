@@ -35,3 +35,18 @@ test("render: 일정 섹션에 제목 + 날짜 + 달력(17 강조)", () => {
   assert.ok(s.includes('class="cal"'), "달력");
   assert.ok(s.includes('class="cal-d on">17</span>'), "17 강조");
 });
+
+test("render: 공지용(기본)에서 오시는 길 숨김", () => {
+  const { els } = loadApp(); // search ""
+  assert.strictEqual(els.venue.hidden, true, "hidden");
+  assert.strictEqual(els.venue.innerHTML, "", "빈 내용");
+});
+
+test("render: 초대용(?to=invite)에서 오시는 길 표시 + 3버튼", () => {
+  const { els } = loadApp({ search: "?to=invite" });
+  assert.strictEqual(els.venue.hidden, false, "표시됨");
+  const v = els.venue.innerHTML;
+  assert.ok(v.includes("오시는 길"), "제목");
+  assert.ok(v.includes("map-ph"), "지도 이미지(키 없음)");
+  assert.ok(v.includes(">티맵</a>") && v.includes(">카카오맵</a>") && v.includes(">네이버지도</a>"), "3버튼");
+});

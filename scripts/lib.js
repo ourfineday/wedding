@@ -56,6 +56,26 @@
     };
   }
 
+  // 오시는 길 섹션 내부 HTML. 키 없으면 지도 이미지(map-ph), 있으면 kakao-map 임베드 컨테이너.
+  function buildVenueHTML(cfg) {
+    var w = cfg.wedding;
+    var L = directionLinks(cfg);
+    var mapInner = cfg.kakaoJsKey
+      ? '<div id="kakao-map" class="map-box"></div>'
+      : '<div class="map-box map-ph">지도</div>';
+    return (
+      '<h2 class="sec-title">오시는 길</h2>' +
+      '<p class="venue-name">' + w.venue + "</p>" +
+      '<p class="venue-addr">' + w.address + "</p>" +
+      mapInner +
+      '<div class="dir-btns">' +
+      '<a class="dir-btn" href="' + L.tmap + '">티맵</a>' +
+      '<a class="dir-btn" href="' + L.kakao + '" target="_blank" rel="noopener">카카오맵</a>' +
+      '<a class="dir-btn" href="' + L.naver + '" target="_blank" rel="noopener">네이버지도</a>' +
+      "</div>"
+    );
+  }
+
   // 사진 박스 HTML. 경로가 없거나 로드 실패하면 CSS 플레이스홀더가 보임.
   function photoHTML(path, label) {
     var ph = '<div class="photo-ph">' + label + "</div>";
@@ -90,6 +110,7 @@
     ddayMessage: ddayMessage,
     getAudience: getAudience,
     directionLinks: directionLinks,
+    buildVenueHTML: buildVenueHTML,
     photoHTML: photoHTML,
     buildCalendarHTML: buildCalendarHTML,
   };

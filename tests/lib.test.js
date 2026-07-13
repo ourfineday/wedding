@@ -43,6 +43,22 @@ test("buildCalendarHTML: 예식일(17) 강조 셀 포함", () => {
   assert.ok(html.includes('class="cal-d on">17</span>'), html);
 });
 
+test("buildVenueHTML: 키 없으면 지도 이미지 + 3버튼", () => {
+  const cfg = { wedding: { venue: "OO홀", address: "서울 어딘가", lat: 37.5, lng: 127 }, kakaoJsKey: "" };
+  const h = Lib.buildVenueHTML(cfg);
+  assert.ok(h.includes("오시는 길"), "제목");
+  assert.ok(h.includes("OO홀"), "예식장명");
+  assert.ok(h.includes("map-ph"), "지도 플레이스홀더");
+  assert.ok(h.includes(">티맵</a>") && h.includes(">카카오맵</a>") && h.includes(">네이버지도</a>"), "3버튼");
+});
+
+test("buildVenueHTML: 키 있으면 kakao-map 임베드 컨테이너", () => {
+  const cfg = { wedding: { venue: "OO홀", address: "주소", lat: 37.5, lng: 127 }, kakaoJsKey: "ABC123" };
+  const h = Lib.buildVenueHTML(cfg);
+  assert.ok(h.includes('id="kakao-map"'), "임베드 컨테이너");
+  assert.ok(!h.includes("map-ph"), "플레이스홀더 없음");
+});
+
 test("photoHTML: 경로 있으면 img+플레이스홀더, 없으면 플레이스홀더만", () => {
   const withImg = Lib.photoHTML("images/main.jpg", "메인 사진");
   assert.ok(withImg.includes('class="photo-img"'), "img class");

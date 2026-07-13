@@ -43,11 +43,47 @@
       Lib.buildCalendarHTML(CFG.wedding.datetime);
   }
 
+  function renderVenue() {
+    var el = document.getElementById("venue");
+    // 공지용(기본)에서는 장소·오시는 길을 숨긴다. 초대용(?to=invite)만 노출.
+    if (Lib.getAudience(location.search) !== "invite") {
+      el.hidden = true;
+      return;
+    }
+    el.hidden = false;
+    el.innerHTML = Lib.buildVenueHTML(CFG);
+    if (CFG.kakaoJsKey) loadKakaoMap(CFG.wedding);
+  }
+
+  // 카카오 키가 있을 때만 지도 SDK를 불러와 임베드. 실패해도 지도 이미지가 유지됨.
+  function loadKakaoMap(w) {
+    var box = document.getElementById("kakao-map");
+    if (!box) return;
+    var s = document.createElement("script");
+    s.src =
+      "https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=" +
+      encodeURIComponent(CFG.kakaoJsKey);
+    s.onload = function () {
+      try {
+        window.kakao.maps.load(function () {
+          var pos = new window.kakao.maps.LatLng(w.lat, w.lng);
+          var map = new window.kakao.maps.Map(box, { center: pos, level: 4 });
+          new window.kakao.maps.Marker({ position: pos, map: map });
+        });
+      } catch (e) {
+        /* 폴백: 지도 박스 유지 */
+      }
+    };
+    s.onerror = function () {};
+    document.head.appendChild(s);
+  }
+
   function init() {
     renderHero();
     renderGreeting();
     renderDday();
     renderSchedule();
+    renderVenue();
   }
 
   document.addEventListener("DOMContentLoaded", init);
