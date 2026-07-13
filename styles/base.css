@@ -88,10 +88,10 @@ section { padding: 48px 28px; text-align: center; }
 
 /* ── 공통 섹션 요소 ── */
 .hero-caption {
-  /* 또박또박 쓴 손글씨 느낌(Gaegu) · 살짝 작게 · 짙은 회색 · 오른쪽 정렬 */
+  /* 정갈한 고운돋움 · 살짝 작게 · 짙은 회색 · 오른쪽 정렬 */
   margin-top: 10px;
   text-align: right;
-  font-family: "Gaegu", "Nanum Myeongjo", var(--font-head, serif);
+  font-family: "Gowun Dodum", var(--font-body, sans-serif);
   color: #444;
   font-size: 0.85rem;
   letter-spacing: 0.01em;
