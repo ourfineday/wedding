@@ -8,6 +8,7 @@
   var DAYS = ["일", "월", "화", "수", "목", "금", "토"];
   var THEMES = [
     { key: "minimal", label: "미니멀" },
+    { key: "fresh", label: "싱그러움" },
     { key: "classic", label: "클래식" },
     { key: "natural", label: "내추럴" },
     { key: "reference", label: "레퍼런스" },
@@ -102,15 +103,31 @@
     return '<div class="photo">' + ph + img + "</div>";
   }
 
-  // 공유 버튼 HTML. opts.kakao/opts.native 여부로 버튼 구성. 링크복사는 항상.
-  function buildShareHTML(opts) {
-    opts = opts || {};
+  // 인사말 섹션 HTML: 제목 + 인사말 본문 + (부모님 있으면) 혼주 표기.
+  function buildGreetingHTML(cfg) {
+    var body = (cfg.greeting || "").replace(/\n/g, "<br />");
+    var hosts = "";
+    if (cfg.groom.parents && cfg.bride.parents) {
+      hosts =
+        '<div class="hosts">' +
+        '<p><span class="host-p">' + cfg.groom.parents + "</span>의 아들 <b>" + cfg.groom.name + "</b></p>" +
+        '<p><span class="host-p">' + cfg.bride.parents + "</span>의 딸 <b>" + cfg.bride.name + "</b></p>" +
+        "</div>";
+    }
+    return (
+      '<h2 class="sec-title">모시는 글</h2>' +
+      '<p class="greeting-body">' + body + "</p>" +
+      hosts
+    );
+  }
+
+  // 공유 버튼 HTML. 카카오톡 공유 버튼은 항상 노출(키 없으면 공유창/복사로 폴백).
+  function buildShareHTML() {
     return (
       '<h2 class="sec-title">마음 전하기</h2>' +
       '<div class="share-btns">' +
-      (opts.kakao ? '<button id="btn-kakao" class="share-btn kakao">카카오톡 공유</button>' : "") +
+      '<button id="btn-kakao" class="share-btn kakao">카카오톡으로 공유하기</button>' +
       '<button id="btn-copy" class="share-btn">링크 복사</button>' +
-      (opts.native ? '<button id="btn-native" class="share-btn">공유하기</button>' : "") +
       "</div>"
     );
   }
@@ -142,6 +159,7 @@
     getAudience: getAudience,
     directionLinks: directionLinks,
     buildVenueHTML: buildVenueHTML,
+    buildGreetingHTML: buildGreetingHTML,
     photoHTML: photoHTML,
     buildShareHTML: buildShareHTML,
     buildCalendarHTML: buildCalendarHTML,

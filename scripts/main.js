@@ -16,10 +16,7 @@
 
   function renderGreeting() {
     var el = document.getElementById("greeting");
-    el.innerHTML =
-      '<h2 class="sec-title">모시는 글</h2>' +
-      '<p class="greeting-body">' + CFG.greeting.replace(/\n/g, "<br />") + "</p>" +
-      Lib.photoHTML(CFG.photos.sub, "사진");
+    el.innerHTML = Lib.buildGreetingHTML(CFG) + Lib.photoHTML(CFG.photos.sub, "사진");
   }
 
   function renderDday() {
@@ -126,42 +123,54 @@
     document.head.appendChild(s);
   }
 
+  function copyToClipboard(url, msg) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(
+        function () {
+          toast(msg);
+        },
+        function () {
+          window.prompt("아래 링크를 복사하세요", url);
+        }
+      );
+    } else {
+      window.prompt("아래 링크를 복사하세요", url);
+    }
+  }
+
+  // 카카오 키가 없을 때의 공유 대체: 기기 공유창(모바일) → 없으면 링크 복사.
+  function shareFallback(url) {
+    if (navigator.share) {
+      navigator.share({ title: "청첩장", url: url }).catch(function () {});
+      return;
+    }
+    copyToClipboard(url, "링크가 복사됐어요. 카카오톡에 붙여넣어 공유하세요");
+  }
+
   function renderShare() {
     var el = document.getElementById("share");
-    var hasKakao = !!CFG.kakaoJsKey;
-    el.innerHTML = Lib.buildShareHTML({ kakao: hasKakao, native: !!navigator.share });
+    el.innerHTML = Lib.buildShareHTML();
 
     var copyBtn = document.getElementById("btn-copy");
     if (copyBtn)
       copyBtn.onclick = function () {
-        var url = currentShareUrl();
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).then(
-            function () {
-              toast("링크가 복사되었어요");
-            },
-            function () {
-              window.prompt("아래 링크를 복사하세요", url);
-            }
-          );
-        } else {
-          window.prompt("아래 링크를 복사하세요", url);
-        }
-      };
-
-    var nativeBtn = document.getElementById("btn-native");
-    if (nativeBtn && navigator.share)
-      nativeBtn.onclick = function () {
-        navigator.share({ title: "청첩장", url: currentShareUrl() });
+        copyToClipboard(currentShareUrl(), "링크가 복사되었어요");
       };
 
     var kakaoBtn = document.getElementById("btn-kakao");
-    if (kakaoBtn && hasKakao)
+    if (kakaoBtn)
       kakaoBtn.onclick = function () {
+        var url = currentShareUrl();
+        if (!CFG.kakaoJsKey) {
+          shareFallback(url); // 키 없으면 공유창/복사로 대체
+          return;
+        }
         loadKakaoSdk(function () {
-          if (!window.Kakao) return toast("잠시 후 다시 시도해 주세요");
+          if (!window.Kakao) {
+            shareFallback(url);
+            return;
+          }
           if (!window.Kakao.isInitialized()) window.Kakao.init(CFG.kakaoJsKey);
-          var url = currentShareUrl();
           window.Kakao.Share.sendDefault({
             objectType: "feed",
             content: {

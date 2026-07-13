@@ -94,7 +94,13 @@ section { padding: 48px 28px; text-align: center; }
   letter-spacing: 0.2em;
   margin-bottom: 18px;
 }
-.greeting-body { margin-bottom: 28px; }
+.greeting-body { margin-bottom: 24px; }
+
+/* ── 혼주(부모님) 표기 ── */
+.hosts { line-height: 1.9; }
+.hosts p { margin: 2px 0; }
+.hosts .host-p { color: var(--muted, #888); }
+.hosts b { font-weight: 600; }
 
 /* ── D-Day ── */
 #dday .dday-badge {
@@ -163,12 +169,14 @@ section { padding: 48px 28px; text-align: center; }
 /* ── 공유 ── */
 .share-btns {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
+  max-width: 300px;
+  margin: 0 auto;
 }
 .share-btn {
-  padding: 12px 20px;
+  width: 100%;
+  padding: 14px 20px;
   border: 1px solid var(--line, #ddd);
   background: var(--bg, #fff);
   border-radius: 10px;
