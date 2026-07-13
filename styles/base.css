@@ -133,3 +133,41 @@ section { padding: 48px 28px; text-align: center; }
   color: var(--fg, #333);
   font-size: 0.9rem;
 }
+
+/* ── 공유 ── */
+.share-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.share-btn {
+  padding: 12px 20px;
+  border: 1px solid var(--line, #ddd);
+  background: var(--bg, #fff);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: var(--fg, #333);
+}
+.share-btn.kakao {
+  background: #fee500;
+  border-color: #fee500;
+  color: #191600;
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 50;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

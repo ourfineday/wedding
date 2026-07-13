@@ -59,6 +59,16 @@ test("buildVenueHTML: 키 있으면 kakao-map 임베드 컨테이너", () => {
   assert.ok(!h.includes("map-ph"), "플레이스홀더 없음");
 });
 
+test("buildShareHTML: 기본은 링크복사만, 옵션에 따라 버튼 추가", () => {
+  const base = Lib.buildShareHTML({});
+  assert.ok(base.includes("링크 복사"), "링크복사 항상");
+  assert.ok(!base.includes("카카오톡 공유"), "카톡 없음");
+  assert.ok(!base.includes(">공유하기<"), "네이티브 없음");
+  const full = Lib.buildShareHTML({ kakao: true, native: true });
+  assert.ok(full.includes("카카오톡 공유"), "카톡");
+  assert.ok(full.includes(">공유하기<"), "네이티브");
+});
+
 test("photoHTML: 경로 있으면 img+플레이스홀더, 없으면 플레이스홀더만", () => {
   const withImg = Lib.photoHTML("images/main.jpg", "메인 사진");
   assert.ok(withImg.includes('class="photo-img"'), "img class");

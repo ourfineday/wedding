@@ -78,12 +78,92 @@
     document.head.appendChild(s);
   }
 
+  function absoluteUrl(path) {
+    return new URL(path, location.href).href;
+  }
+  function currentShareUrl() {
+    return location.href; // 현재 보고 있는 버전(파라미터 포함)을 공유
+  }
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.hidden = false;
+    t.classList.add("show");
+    setTimeout(function () {
+      t.classList.remove("show");
+      t.hidden = true;
+    }, 1800);
+  }
+  // 카카오 공유 SDK를 키가 있을 때만 동적 로드(없으면 네트워크 요청 0).
+  function loadKakaoSdk(cb) {
+    if (window.Kakao) return cb();
+    var s = document.createElement("script");
+    s.src = "https://t1.kakao.com/kakao_js_sdk/2.7.2/kakao.min.js";
+    s.crossOrigin = "anonymous";
+    s.onload = cb;
+    s.onerror = function () {
+      cb();
+    };
+    document.head.appendChild(s);
+  }
+
+  function renderShare() {
+    var el = document.getElementById("share");
+    var hasKakao = !!CFG.kakaoJsKey;
+    el.innerHTML = Lib.buildShareHTML({ kakao: hasKakao, native: !!navigator.share });
+
+    var copyBtn = document.getElementById("btn-copy");
+    if (copyBtn)
+      copyBtn.onclick = function () {
+        var url = currentShareUrl();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(
+            function () {
+              toast("링크가 복사되었어요");
+            },
+            function () {
+              window.prompt("아래 링크를 복사하세요", url);
+            }
+          );
+        } else {
+          window.prompt("아래 링크를 복사하세요", url);
+        }
+      };
+
+    var nativeBtn = document.getElementById("btn-native");
+    if (nativeBtn && navigator.share)
+      nativeBtn.onclick = function () {
+        navigator.share({ title: "청첩장", url: currentShareUrl() });
+      };
+
+    var kakaoBtn = document.getElementById("btn-kakao");
+    if (kakaoBtn && hasKakao)
+      kakaoBtn.onclick = function () {
+        loadKakaoSdk(function () {
+          if (!window.Kakao) return toast("잠시 후 다시 시도해 주세요");
+          if (!window.Kakao.isInitialized()) window.Kakao.init(CFG.kakaoJsKey);
+          var url = currentShareUrl();
+          window.Kakao.Share.sendDefault({
+            objectType: "feed",
+            content: {
+              title: CFG.groom.name + " ♥ " + CFG.bride.name + " 결혼합니다",
+              description: Lib.formatDate(CFG.wedding.datetime),
+              imageUrl: absoluteUrl(CFG.photos.main),
+              link: { mobileWebUrl: url, webUrl: url },
+            },
+            buttons: [{ title: "청첩장 보기", link: { mobileWebUrl: url, webUrl: url } }],
+          });
+        });
+      };
+  }
+
   function init() {
     renderHero();
     renderGreeting();
     renderDday();
     renderSchedule();
     renderVenue();
+    renderShare();
   }
 
   document.addEventListener("DOMContentLoaded", init);

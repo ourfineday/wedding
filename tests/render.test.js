@@ -50,3 +50,16 @@ test("render: 초대용(?to=invite)에서 오시는 길 표시 + 3버튼", () =>
   assert.ok(v.includes("map-ph"), "지도 이미지(키 없음)");
   assert.ok(v.includes(">티맵</a>") && v.includes(">카카오맵</a>") && v.includes(">네이버지도</a>"), "3버튼");
 });
+
+test("render: 공유 섹션 - 키 없으면 링크복사만(카톡 버튼 없음)", () => {
+  const { els } = loadApp();
+  const s = els.share.innerHTML;
+  assert.ok(s.includes("마음 전하기"), "제목");
+  assert.ok(s.includes("링크 복사"), "링크복사");
+  assert.ok(!s.includes("카카오톡 공유"), "카톡 버튼 없음");
+});
+
+test("render: 공유 섹션 - 키 있으면 카톡 공유 버튼 노출", () => {
+  const { els } = loadApp({ config: (c) => { c.kakaoJsKey = "ABC"; } });
+  assert.ok(els.share.innerHTML.includes("카카오톡 공유"), "카톡 버튼");
+});

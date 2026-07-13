@@ -86,6 +86,19 @@
     return '<div class="photo">' + ph + img + "</div>";
   }
 
+  // 공유 버튼 HTML. opts.kakao/opts.native 여부로 버튼 구성. 링크복사는 항상.
+  function buildShareHTML(opts) {
+    opts = opts || {};
+    return (
+      '<h2 class="sec-title">마음 전하기</h2>' +
+      '<div class="share-btns">' +
+      (opts.kakao ? '<button id="btn-kakao" class="share-btn kakao">카카오톡 공유</button>' : "") +
+      '<button id="btn-copy" class="share-btn">링크 복사</button>' +
+      (opts.native ? '<button id="btn-native" class="share-btn">공유하기</button>' : "") +
+      "</div>"
+    );
+  }
+
   // 예식 월 달력 HTML (예식일 .on 강조, 일요일 .sun)
   function buildCalendarHTML(iso) {
     var d = new Date(iso);
@@ -112,6 +125,7 @@
     directionLinks: directionLinks,
     buildVenueHTML: buildVenueHTML,
     photoHTML: photoHTML,
+    buildShareHTML: buildShareHTML,
     buildCalendarHTML: buildCalendarHTML,
   };
 });
