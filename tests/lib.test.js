@@ -36,3 +36,13 @@ test("buildCalendarHTML: 예식일(17) 강조 셀 포함", () => {
   const html = Lib.buildCalendarHTML("2026-10-17T13:00:00");
   assert.ok(html.includes('class="cal-d on">17</span>'), html);
 });
+
+test("photoHTML: 경로 있으면 img+플레이스홀더, 없으면 플레이스홀더만", () => {
+  const withImg = Lib.photoHTML("images/main.jpg", "메인 사진");
+  assert.ok(withImg.includes('class="photo-img"'), "img class");
+  assert.ok(withImg.includes('src="images/main.jpg"'), "src");
+  assert.ok(withImg.includes('class="photo-ph">메인 사진</div>'), "placeholder label");
+  const noImg = Lib.photoHTML("", "사진");
+  assert.ok(!noImg.includes("<img"), "no img when path empty");
+  assert.ok(noImg.includes('class="photo-ph">사진</div>'), "placeholder only");
+});

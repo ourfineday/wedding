@@ -56,6 +56,16 @@
     };
   }
 
+  // 사진 박스 HTML. 경로가 없거나 로드 실패하면 CSS 플레이스홀더가 보임.
+  function photoHTML(path, label) {
+    var ph = '<div class="photo-ph">' + label + "</div>";
+    var img = path
+      ? '<img class="photo-img" src="' + path + '" alt="' + label +
+        "\" onerror=\"this.style.display='none'\" />"
+      : "";
+    return '<div class="photo">' + ph + img + "</div>";
+  }
+
   // 예식 월 달력 HTML (예식일 .on 강조, 일요일 .sun)
   function buildCalendarHTML(iso) {
     var d = new Date(iso);
@@ -80,6 +90,7 @@
     ddayMessage: ddayMessage,
     getAudience: getAudience,
     directionLinks: directionLinks,
+    photoHTML: photoHTML,
     buildCalendarHTML: buildCalendarHTML,
   };
 });
