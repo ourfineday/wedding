@@ -20,5 +20,5 @@ window.WEDDING_CONFIG = {
 
   // ── 표시 설정 ──
   theme: "classic", // 확정 테마: minimal | fresh | classic | natural | reference (언제든 변경 가능)
-  previewMode: true, // 테마 비교용(상단 바). 배포 전에 false로 → config.theme만 적용됩니다.
+  previewMode: false, // 배포용: 하객에겐 테마 바 숨김. 다시 비교하려면 true로.
 };

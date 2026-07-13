@@ -3,17 +3,18 @@ const test = require("node:test");
 const assert = require("node:assert");
 const { loadApp } = require("./dom-harness.js");
 
-test("render: 기본 설정은 테마 미리보기 바 노출(5개) + config.theme 적용", () => {
-  const { els, documentEl, cfg } = loadApp();
+test("render: previewMode=true면 테마 미리보기 바 노출(5개) + config.theme 적용", () => {
+  const { els, documentEl, cfg } = loadApp({ config: (c) => { c.previewMode = true; } });
   assert.strictEqual(els["theme-bar"].hidden, false, "바 표시");
   const bar = els["theme-bar"].innerHTML;
   ["미니멀", "싱그러움", "클래식", "내추럴", "레퍼런스"].forEach((l) => assert.ok(bar.includes(l), l));
   assert.strictEqual(documentEl.getAttribute("data-theme"), cfg.theme, "config.theme 적용");
 });
 
-test("render: previewMode=false면 테마바 숨김", () => {
-  const { els } = loadApp({ config: (c) => { c.previewMode = false; } });
+test("render: 기본(배포) 설정은 테마바 숨김 + config.theme 적용", () => {
+  const { els, documentEl, cfg } = loadApp();
   assert.strictEqual(els["theme-bar"].hidden, true, "바 숨김");
+  assert.strictEqual(documentEl.getAttribute("data-theme"), cfg.theme, "config.theme 적용");
 });
 
 test("render: ?theme=fresh 이면 data-theme=fresh", () => {
