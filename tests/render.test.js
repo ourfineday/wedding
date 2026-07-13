@@ -35,12 +35,17 @@ test("render: 히어로에 이름 + 날짜 + 사진 (캡션은 config에 따라)
   }
 });
 
-test("render: 인사말에 제목 + 본문 + 서브 사진 (부모님 빈칸이면 혼주 생략)", () => {
+test("render: 인사말에 제목 + 본문 + 서브 사진 (부모님 성함 있으면 혼주 표시)", () => {
   const { els, cfg } = loadApp();
   const g = els.greeting.innerHTML;
   assert.ok(g.includes("저희, 결혼합니다"), "제목");
   assert.ok(g.includes(cfg.greeting.split("\n")[0]), "인사말 본문(첫 줄)");
-  assert.ok(!g.includes("의 아들"), "혼주 생략(부모님 빈칸)");
+  if (cfg.groom.parents && cfg.bride.parents) {
+    assert.ok(g.includes(cfg.groom.parents) && g.includes(cfg.groom.rel || "아들"), "신랑 혼주 표시");
+    assert.ok(g.includes(cfg.bride.parents) && g.includes(cfg.bride.rel || "딸"), "신부 혼주 표시");
+  } else {
+    assert.ok(!g.includes("의 아들"), "혼주 생략(부모님 빈칸)");
+  }
   assert.ok(g.includes('class="photo"'), "서브 사진");
 });
 

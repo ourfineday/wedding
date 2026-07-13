@@ -110,10 +110,12 @@
     var body = (cfg.greeting || "").replace(/\n/g, "<br />");
     var hosts = "";
     if (cfg.groom.parents && cfg.bride.parents) {
+      var gRel = cfg.groom.rel || "아들";
+      var bRel = cfg.bride.rel || "딸";
       hosts =
         '<div class="hosts">' +
-        '<p><span class="host-p">' + cfg.groom.parents + "</span>의 아들 <b>" + cfg.groom.name + "</b></p>" +
-        '<p><span class="host-p">' + cfg.bride.parents + "</span>의 딸 <b>" + cfg.bride.name + "</b></p>" +
+        '<p><span class="host-p">' + cfg.groom.parents + "</span>의 " + gRel + " <b>" + cfg.groom.name + "</b></p>" +
+        '<p><span class="host-p">' + cfg.bride.parents + "</span>의 " + bRel + " <b>" + cfg.bride.name + "</b></p>" +
         "</div>";
     }
     return (
