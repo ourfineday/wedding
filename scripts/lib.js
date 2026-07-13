@@ -70,7 +70,7 @@
       kakao: "https://map.kakao.com/link/to/" + q + "," + w.lat + "," + w.lng,
       naver: "https://map.naver.com/p/search/" + q,
       naverApp:
-        "nmap://route/public?dlat=" + w.lat + "&dlng=" + w.lng + "&dname=" + q + "&appname=ourfineday.github.io",
+        "nmap://route/car?dlat=" + w.lat + "&dlng=" + w.lng + "&dname=" + q + "&appname=ourfineday.github.io",
       tmap: "tmap://route?goalname=" + q + "&goalx=" + w.lng + "&goaly=" + w.lat,
     };
   }
