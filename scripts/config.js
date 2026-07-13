@@ -17,7 +17,7 @@ window.WEDDING_CONFIG = {
   heroCaption: "새로운 시작, 우리.", // 메인 사진 아래 문구 (비우면 표시 안 함)
 
   // ── 선택 기능 ──
-  kakaoJsKey: "", // 카카오 JS 키(비우면 링크복사/버튼으로 동작, 지도는 이미지)
+  kakaoJsKey: "9477d82b3524d31cc947a01f4c5303de", // 카카오 JS 키(공개용, 도메인 등록으로 보호)
 
   // ── 표시 설정 ──
   theme: "classic", // 확정 테마: minimal | fresh | classic | natural | reference (언제든 변경 가능)

@@ -68,7 +68,7 @@ test("render: 초대용(?to=invite)에서 오시는 길 표시 + 3버튼", () =>
   assert.strictEqual(els.venue.hidden, false, "표시됨");
   const v = els.venue.innerHTML;
   assert.ok(v.includes("오시는 길"), "제목");
-  assert.ok(v.includes("map-ph"), "지도 이미지(키 없음)");
+  assert.ok(v.includes('id="kakao-map"'), "카카오맵 임베드(키 있음)");
   assert.ok(v.includes(">티맵</a>") && v.includes(">카카오맵</a>") && v.includes(">네이버지도</a>"), "3버튼");
 });
 
