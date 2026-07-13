@@ -88,12 +88,12 @@ section { padding: 48px 28px; text-align: center; }
 
 /* ── 공통 섹션 요소 ── */
 .hero-caption {
-  /* 정갈한 고운돋움 · 살짝 작게 · 짙은 회색 · 오른쪽 정렬 */
-  margin-top: 10px;
+  /* 나눔손글씨 펜(손글씨체) · 오른쪽 정렬 · 짙은 회색. 손글씨라 크기 살짝 키움. */
+  margin-top: 8px;
   text-align: right;
-  font-family: "Gowun Dodum", var(--font-body, sans-serif);
+  font-family: "Nanum Pen Script", var(--font-body, sans-serif);
   color: #444;
-  font-size: 0.85rem;
+  font-size: 1.15rem;
   letter-spacing: 0.01em;
 }
 .hero-cap { margin-top: 20px; }
