@@ -104,7 +104,7 @@ section { padding: 48px 28px; text-align: center; }
   letter-spacing: 0.2em;
   margin-bottom: 18px;
 }
-.greeting-body { margin-bottom: 36px; }
+.greeting-body { margin-bottom: 48px; }
 
 /* ── 혼주(부모님) 표기 ── */
 .hosts { line-height: 1.9; }
