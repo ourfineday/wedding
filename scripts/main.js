@@ -6,8 +6,10 @@
 
   function renderHero() {
     var el = document.getElementById("hero");
+    var caption = CFG.heroCaption ? '<p class="hero-caption">' + CFG.heroCaption + "</p>" : "";
     el.innerHTML =
       Lib.photoHTML(CFG.photos.main, "메인 사진") +
+      caption +
       '<div class="hero-cap">' +
       '<p class="names">' + CFG.groom.name + " · " + CFG.bride.name + "</p>" +
       '<p class="date-line">' + Lib.formatDate(CFG.wedding.datetime) + "</p>" +

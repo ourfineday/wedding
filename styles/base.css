@@ -56,9 +56,8 @@ section { padding: 48px 28px; text-align: center; }
 .photo {
   position: relative;
   width: 100%;
-  /* 사진 비율(3000x3300 = 10:11)에 맞춰 전체 표시 → 하단 캡션 안 잘림.
-     다른 비율 사진으로 바꾸면 이 값도 사진 비율로 맞추세요. */
-  aspect-ratio: 10 / 11;
+  /* 커플 크롭 사진을 4:5 세로로 표시 (object-fit: cover). */
+  aspect-ratio: 4 / 5;
   background: var(--photo-bg, #e9e6e1);
   border-radius: var(--radius, 14px);
   overflow: hidden;
@@ -88,7 +87,14 @@ section { padding: 48px 28px; text-align: center; }
 }
 
 /* ── 공통 섹션 요소 ── */
-.hero-cap { margin-top: 22px; }
+.hero-caption {
+  margin-top: 14px;
+  font-family: var(--font-head, serif);
+  color: var(--muted, #8b8680);
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+}
+.hero-cap { margin-top: 20px; }
 .sec-title {
   font-family: var(--font-head, serif);
   font-size: 1.15rem;
