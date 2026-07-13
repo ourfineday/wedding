@@ -73,10 +73,14 @@
     };
   }
 
-  // 카카오 키가 있을 때만 지도 SDK를 불러와 임베드. 실패해도 지도 이미지가 유지됨.
+  // 카카오 키가 있을 때만 지도 SDK를 불러와 임베드. 실패하면 "지도" 자리로 폴백.
   function loadKakaoMap(w) {
     var box = document.getElementById("kakao-map");
     if (!box) return;
+    function fail() {
+      box.className = "map-box map-ph";
+      box.textContent = "지도";
+    }
     var s = document.createElement("script");
     s.src =
       "https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=" +
@@ -84,15 +88,19 @@
     s.onload = function () {
       try {
         window.kakao.maps.load(function () {
-          var pos = new window.kakao.maps.LatLng(w.lat, w.lng);
-          var map = new window.kakao.maps.Map(box, { center: pos, level: 4 });
-          new window.kakao.maps.Marker({ position: pos, map: map });
+          try {
+            var pos = new window.kakao.maps.LatLng(w.lat, w.lng);
+            var map = new window.kakao.maps.Map(box, { center: pos, level: 4 });
+            new window.kakao.maps.Marker({ position: pos, map: map });
+          } catch (e) {
+            fail();
+          }
         });
       } catch (e) {
-        /* 폴백: 지도 박스 유지 */
+        fail();
       }
     };
-    s.onerror = function () {};
+    s.onerror = fail;
     document.head.appendChild(s);
   }
 
@@ -116,7 +124,7 @@
   function loadKakaoSdk(cb) {
     if (window.Kakao) return cb();
     var s = document.createElement("script");
-    s.src = "https://t1.kakao.com/kakao_js_sdk/2.7.2/kakao.min.js";
+    s.src = "https://t1.daumcdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
     s.crossOrigin = "anonymous";
     s.onload = cb;
     s.onerror = function () {
