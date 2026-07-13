@@ -52,6 +52,7 @@
     el.hidden = false;
     el.innerHTML = Lib.buildVenueHTML(CFG);
     wireTmapFallback();
+    wireNaverFallback();
     if (CFG.kakaoJsKey) loadKakaoMap(CFG.wedding);
   }
 
@@ -69,6 +70,22 @@
       window.location.href = a.getAttribute("href");
       setTimeout(function () {
         if (!document.hidden) toast("티맵 앱이 설치되어 있어야 열려요");
+      }, 1500);
+    };
+  }
+
+  // 네이버는 좌표 기반 웹 길찾기 링크가 없어, 휴대폰이면 네이버 앱 길찾기로 열고
+  // PC(또는 앱 미설치)면 장소 검색 페이지(href)로 폴백한다. 카카오·티맵과 동일한 '길찾기' 경험.
+  function wireNaverFallback() {
+    var a = document.getElementById("dir-naver");
+    if (!a) return;
+    a.onclick = function (e) {
+      var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+      if (!isMobile) return; // PC: 새 탭에서 장소 검색(href) 그대로
+      e.preventDefault();
+      window.location.href = Lib.directionLinks(CFG).naverApp; // 휴대폰: 네이버 앱 길찾기
+      setTimeout(function () {
+        if (!document.hidden) window.location.href = a.getAttribute("href"); // 앱 없으면 웹 검색
       }, 1500);
     };
   }

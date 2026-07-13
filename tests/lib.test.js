@@ -44,11 +44,20 @@ test("getAudience: 기본 public, ?to=invite 만 invite", () => {
   assert.strictEqual(Lib.getAudience("?foo=1&to=invite"), "invite");
 });
 
-test("directionLinks: 3사 URL 형식", () => {
+test("directionLinks: 3사 URL 형식 + 네이버 앱 길찾기", () => {
   const links = Lib.directionLinks({ wedding: { venue: "OO홀", lat: 37.5, lng: 127.0 } });
   assert.ok(links.kakao.startsWith("https://map.kakao.com/link/to/"), "kakao");
-  assert.ok(links.naver.startsWith("https://map.naver.com/"), "naver");
+  assert.ok(links.naver.startsWith("https://map.naver.com/"), "naver 웹 검색");
+  assert.ok(links.naverApp.startsWith("nmap://route"), "naver 앱 길찾기");
   assert.ok(links.tmap.startsWith("tmap://route"), "tmap");
+});
+
+test("directionLinks: venueSearch 있으면 지도 검색에 그 이름 사용", () => {
+  const links = Lib.directionLinks({
+    wedding: { venue: "JW 메리어트 7층 더 마고 그릴", venueSearch: "JW 메리어트 호텔 서울", lat: 37.5, lng: 127.0 },
+  });
+  assert.ok(links.naver.includes(encodeURIComponent("JW 메리어트 호텔 서울")), "검색은 venueSearch");
+  assert.ok(!links.naver.includes(encodeURIComponent("더 마고 그릴")), "긴 표시이름은 검색에 안 씀");
 });
 
 test("buildVenueHTML: 키 없으면 지도 이미지 + 3버튼", () => {
@@ -59,6 +68,7 @@ test("buildVenueHTML: 키 없으면 지도 이미지 + 3버튼", () => {
   assert.ok(h.includes("map-ph"), "지도 플레이스홀더");
   assert.ok(h.includes(">티맵</a>") && h.includes(">카카오맵</a>") && h.includes(">네이버지도</a>"), "3버튼");
   assert.ok(h.includes('id="dir-tmap"'), "티맵 버튼 id(폴백 배선용)");
+  assert.ok(h.includes('id="dir-naver"'), "네이버 버튼 id(폴백 배선용)");
 });
 test("buildVenueHTML: 키 있으면 kakao-map 임베드 컨테이너", () => {
   const cfg = { wedding: { venue: "OO홀", address: "주소", lat: 37.5, lng: 127 }, kakaoJsKey: "ABC123" };

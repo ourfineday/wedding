@@ -62,13 +62,15 @@
     }
   }
 
-  // 길찾기 딥링크 3종 (키 불필요)
+  // 길찾기 딥링크 3종 (키 불필요). 검색용 이름은 venueSearch 우선(없으면 venue).
   function directionLinks(cfg) {
     var w = cfg.wedding;
-    var q = encodeURIComponent(w.venue);
+    var q = encodeURIComponent(w.venueSearch || w.venue);
     return {
       kakao: "https://map.kakao.com/link/to/" + q + "," + w.lat + "," + w.lng,
       naver: "https://map.naver.com/p/search/" + q,
+      naverApp:
+        "nmap://route/public?dlat=" + w.lat + "&dlng=" + w.lng + "&dname=" + q + "&appname=ourfineday.github.io",
       tmap: "tmap://route?goalname=" + q + "&goalx=" + w.lng + "&goaly=" + w.lat,
     };
   }
@@ -88,7 +90,7 @@
       '<div class="dir-btns">' +
       '<a class="dir-btn" id="dir-tmap" href="' + L.tmap + '">티맵</a>' +
       '<a class="dir-btn" href="' + L.kakao + '" target="_blank" rel="noopener">카카오맵</a>' +
-      '<a class="dir-btn" href="' + L.naver + '" target="_blank" rel="noopener">네이버지도</a>' +
+      '<a class="dir-btn" id="dir-naver" href="' + L.naver + '" target="_blank" rel="noopener">네이버지도</a>' +
       "</div>"
     );
   }
