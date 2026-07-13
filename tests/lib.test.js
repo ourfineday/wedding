@@ -3,6 +3,20 @@ const test = require("node:test");
 const assert = require("node:assert");
 const Lib = require("../scripts/lib.js");
 
+test("THEMES: 4개 테마 키 순서", () => {
+  assert.deepStrictEqual(
+    Lib.THEMES.map((t) => t.key),
+    ["minimal", "classic", "natural", "reference"]
+  );
+});
+
+test("resolveTheme: url > config > 기본(minimal)", () => {
+  assert.strictEqual(Lib.resolveTheme("classic", "natural"), "classic", "url 우선");
+  assert.strictEqual(Lib.resolveTheme(null, "natural"), "natural", "config");
+  assert.strictEqual(Lib.resolveTheme("bogus", "alsobogus"), "minimal", "둘 다 무효→minimal");
+  assert.strictEqual(Lib.resolveTheme("", ""), "minimal", "빈값→minimal");
+});
+
 test("formatDate: 예식일 한국어 포맷", () => {
   assert.strictEqual(Lib.formatDate("2026-10-17T13:00:00"), "2026년 10월 17일 토요일 오후 1시");
 });

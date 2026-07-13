@@ -1,6 +1,32 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root { --maxw: 480px; }
 
+/* ── 테마 미리보기 바 (택1 후 config.previewMode=false 로 숨김) ── */
+#theme-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 8px;
+  background: rgba(20, 20, 20, 0.92);
+}
+#theme-bar .tb-label { color: #fff; font-size: 0.8rem; margin-right: 4px; }
+#theme-bar button {
+  padding: 6px 12px;
+  border: 1px solid #555;
+  background: transparent;
+  color: #eee;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+#theme-bar button.on { background: #fff; color: #111; border-color: #fff; }
+#theme-bar[hidden] { display: none; }
+
 body {
   font-family: var(--font-body, system-ui, "Apple SD Gothic Neo", sans-serif);
   color: var(--fg, #222);
@@ -171,3 +197,12 @@ section { padding: 48px 28px; text-align: center; }
   pointer-events: none;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── 반응형: PC에서는 중앙 카드 + 여백 ── */
+@media (min-width: 520px) {
+  body { padding: 24px 0; }
+  #app {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+  }
+}

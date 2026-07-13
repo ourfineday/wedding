@@ -1,4 +1,4 @@
-/* themes.css — 테마별 CSS 변수. Task 7에서 classic/natural/reference를 채웁니다. */
+/* themes.css — 테마별 CSS 변수. 같은 변수 집합에 값만 다르게 준다. */
 :root,
 :root[data-theme="minimal"] {
   --font-head: "Noto Serif KR", serif;
@@ -12,4 +12,46 @@
   --photo-bg: #eae6df;
   --photo-bg2: #e3ded6;
   --radius: 14px;
+}
+
+:root[data-theme="classic"] {
+  --font-head: "Nanum Myeongjo", serif;
+  --font-body: "Noto Sans KR", system-ui, sans-serif;
+  --bg: #fffdfb;
+  --bg-outer: #f2e7e7;
+  --fg: #4a3a3a;
+  --muted: #a98f8f;
+  --accent: #c98b8b;
+  --line: #efd9d9;
+  --photo-bg: #f3e6e6;
+  --photo-bg2: #eddada;
+  --radius: 18px;
+}
+
+:root[data-theme="natural"] {
+  --font-head: "Noto Serif KR", serif;
+  --font-body: "Noto Sans KR", system-ui, sans-serif;
+  --bg: #fdfdf9;
+  --bg-outer: #e7ebe1;
+  --fg: #39423a;
+  --muted: #8a938a;
+  --accent: #7d9070;
+  --line: #dbe2d5;
+  --photo-bg: #e6ebe0;
+  --photo-bg2: #dee5d7;
+  --radius: 12px;
+}
+
+:root[data-theme="reference"] {
+  --font-head: "Noto Serif KR", serif;
+  --font-body: "Noto Sans KR", system-ui, sans-serif;
+  --bg: #ffffff;
+  --bg-outer: #111111;
+  --fg: #222222;
+  --muted: #999999;
+  --accent: #111111;
+  --line: #e6e6e6;
+  --photo-bg: #ededed;
+  --photo-bg2: #e5e5e5;
+  --radius: 2px;
 }

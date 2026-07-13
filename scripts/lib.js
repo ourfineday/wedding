@@ -6,6 +6,22 @@
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   "use strict";
   var DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+  var THEMES = [
+    { key: "minimal", label: "미니멀" },
+    { key: "classic", label: "클래식" },
+    { key: "natural", label: "내추럴" },
+    { key: "reference", label: "레퍼런스" },
+  ];
+
+  // urlTheme > cfgTheme > 기본(minimal). 유효하지 않은 값은 무시.
+  function resolveTheme(urlTheme, cfgTheme) {
+    function ok(k) {
+      return THEMES.some(function (t) { return t.key === k; });
+    }
+    if (ok(urlTheme)) return urlTheme;
+    if (ok(cfgTheme)) return cfgTheme;
+    return "minimal";
+  }
 
   // ISO(로컬 표기) → "2026년 10월 17일 토요일 오후 1시"
   function formatDate(iso) {
@@ -118,6 +134,8 @@
   }
 
   return {
+    THEMES: THEMES,
+    resolveTheme: resolveTheme,
     formatDate: formatDate,
     computeDday: computeDday,
     ddayMessage: ddayMessage,

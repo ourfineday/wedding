@@ -157,7 +157,43 @@
       };
   }
 
+  function applyTheme(name) {
+    document.documentElement.setAttribute("data-theme", name);
+  }
+
+  function renderThemeBar() {
+    var urlTheme = new URLSearchParams(location.search).get("theme");
+    applyTheme(Lib.resolveTheme(urlTheme, CFG.theme));
+
+    var bar = document.getElementById("theme-bar");
+    if (!CFG.previewMode) {
+      bar.hidden = true;
+      return;
+    }
+    bar.hidden = false;
+    bar.innerHTML =
+      '<span class="tb-label">테마 미리보기</span>' +
+      Lib.THEMES.map(function (t) {
+        return '<button data-t="' + t.key + '">' + t.label + "</button>";
+      }).join("");
+
+    var buttons = bar.querySelectorAll("button");
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.onclick = function () {
+        applyTheme(b.getAttribute("data-t"));
+        Array.prototype.forEach.call(buttons, function (x) {
+          x.classList.remove("on");
+        });
+        b.classList.add("on");
+      };
+    });
+    var cur = document.documentElement.getAttribute("data-theme");
+    var active = bar.querySelector('button[data-t="' + cur + '"]');
+    if (active) active.classList.add("on");
+  }
+
   function init() {
+    renderThemeBar();
     renderHero();
     renderGreeting();
     renderDday();
