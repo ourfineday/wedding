@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko" data-theme="minimal">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>모바일 청첩장</title>
+    <!-- OG: 공지용 정보만(장소 미포함). Task 8에서 실제 값으로 갱신 -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="저희 결혼합니다" />
+    <meta property="og:description" content="소중한 분들을 초대합니다" />
+    <link rel="stylesheet" href="styles/themes.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+  </head>
+  <body>
+    <div id="theme-bar" hidden></div>
+    <main id="app">
+      <section id="hero"></section>
+      <section id="greeting"></section>
+      <section id="dday"></section>
+      <section id="schedule"></section>
+      <section id="venue" hidden></section>
+      <section id="share"></section>
+    </main>
+    <div id="toast" class="toast" hidden></div>
+
+    <script src="scripts/config.js"></script>
+    <script src="scripts/lib.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
