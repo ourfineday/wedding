@@ -18,6 +18,12 @@ test("computeDday: 전/당일/후", () => {
   assert.strictEqual(Lib.computeDday(new Date("2026-10-20T09:00:00"), t).label, "D+3");
 });
 
+test("ddayMessage: phase별 문구", () => {
+  assert.ok(Lib.ddayMessage({ phase: "before", days: 7 }).includes("7일 남았"), "before");
+  assert.ok(Lib.ddayMessage({ phase: "day", days: 0 }).includes("오늘"), "day");
+  assert.ok(Lib.ddayMessage({ phase: "after", days: -3 }).includes("3일"), "after");
+});
+
 test("getAudience: 기본 public, ?to=invite 만 invite", () => {
   assert.strictEqual(Lib.getAudience(""), "public");
   assert.strictEqual(Lib.getAudience("?to=invite"), "invite");

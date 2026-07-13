@@ -22,9 +22,23 @@
       Lib.photoHTML(CFG.photos.sub, "사진");
   }
 
+  function renderDday() {
+    var el = document.getElementById("dday");
+    var target = new Date(CFG.wedding.datetime);
+    function paint() {
+      var r = Lib.computeDday(new Date(), target);
+      el.innerHTML =
+        '<div class="dday-badge">' + r.label + "</div>" +
+        '<p class="dday-msg">' + Lib.ddayMessage(r) + "</p>";
+    }
+    paint();
+    setInterval(paint, 60 * 1000); // 1분마다 재계산 → 자정 넘어가면 자동 갱신
+  }
+
   function init() {
     renderHero();
     renderGreeting();
+    renderDday();
   }
 
   document.addEventListener("DOMContentLoaded", init);

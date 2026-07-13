@@ -18,3 +18,11 @@ test("render: 인사말에 제목 + 본문 + 서브 사진", () => {
   assert.ok(g.includes("귀한 걸음"), "인사말 본문");
   assert.ok(g.includes('class="photo"'), "서브 사진");
 });
+
+test("render: D-Day 배지 + 문구 (라벨 형식)", () => {
+  const { els } = loadApp();
+  const d = els.dday.innerHTML;
+  assert.ok(d.includes('class="dday-badge"'), "배지");
+  assert.ok(/D-\d+|D-DAY|D\+\d+/.test(d), "D-라벨 형식: " + d);
+  assert.ok(/남았습니다|오늘|되었습니다/.test(d), "문구");
+});
