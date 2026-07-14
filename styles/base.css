@@ -104,10 +104,10 @@ section { padding: 48px 28px; text-align: center; }
   letter-spacing: 0.2em;
   margin-bottom: 18px;
 }
-.greeting-body { margin-bottom: 64px; }
+.greeting-body { margin-bottom: 64px; } /* 인사말↔혼주 간격 (혼주 없으면 인사말↔사진) */
 
 /* ── 혼주(부모님) 표기 ── */
-.hosts { line-height: 1.9; }
+.hosts { line-height: 1.9; margin-bottom: 96px; } /* 혼주↔사진 = 사진↔D-Day 간격(섹션 패딩 48+48px)에 맞춤 */
 .hosts p { margin: 2px 0; }
 .hosts .host-p { color: var(--muted, #888); }
 .hosts b { font-weight: 600; }
