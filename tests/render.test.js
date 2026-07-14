@@ -80,11 +80,14 @@ test("render: 일정 섹션에 제목 + 날짜 + 달력(17 강조)", () => {
   assert.ok(!s.includes("사진 촬영"), "공지용엔 사진 촬영 미표시");
 });
 
-test("render: 초대용 일정엔 사진 촬영(오후 5시 15분) 표시, 공지용엔 없음", () => {
-  const invite = loadApp({ search: "?to=invite" }).els.schedule.innerHTML;
-  assert.ok(invite.includes("사진 촬영") && invite.includes("오후 5시 15분"), "초대용 사진 촬영 표시");
-  const pub = loadApp().els.schedule.innerHTML;
-  assert.ok(!pub.includes("사진 촬영"), "공지용엔 사진 촬영 없음");
+test("render: photoDatetime 설정 시에만 초대용 일정에 사진 촬영 표시", () => {
+  const set = (c) => { c.wedding.photoDatetime = "2026-09-12T17:15:00"; };
+  const invite = loadApp({ search: "?to=invite", config: set }).els.schedule.innerHTML;
+  assert.ok(invite.includes("사진 촬영") && invite.includes("오후 5시 15분"), "초대용 표시");
+  const pub = loadApp({ config: set }).els.schedule.innerHTML;
+  assert.ok(!pub.includes("사진 촬영"), "공지용엔 없음");
+  const real = loadApp({ search: "?to=invite" }).els.schedule.innerHTML;
+  assert.ok(!real.includes("사진 촬영"), "실제 config(빈 값)에선 미표시");
 });
 
 test("render: 공지용(기본)에서 오시는 길 숨김", () => {
