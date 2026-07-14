@@ -1,7 +1,7 @@
 // scripts/config.js — 여기 값만 고치면 청첩장이 바뀝니다.
 window.WEDDING_CONFIG = {
   // ── 기본 정보 ──
-  groom: { name: "탁성준", given: "성준", parents: "탁치민 · 조향운", rel: "외아들" }, // 신랑 (given=성 뺀 이름=혼주줄용, rel=서열)
+  groom: { name: "탁성준", given: "성준", parents: "탁치민 · 조향운", rel: "장남" }, // 신랑 (given=성 뺀 이름=혼주줄용, rel=서열)
   bride: { name: "김혜린", given: "혜린", parents: "김화성 · 조애리", rel: "장녀" }, // 신부
   wedding: {
     // 예식 일시: 오프셋 없는 로컬 표기(한국 시간 기준). 어느 기기에서 열어도 동일하게 표시됩니다.
