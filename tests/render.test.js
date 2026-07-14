@@ -26,7 +26,7 @@ test("render: 히어로에 이름 + 날짜 + 사진 (캡션은 config에 따라)
   const { els, cfg } = loadApp();
   const hero = els.hero.innerHTML;
   assert.ok(hero.includes("탁성준 · 김혜린"), "이름");
-  assert.ok(hero.includes("2026년 9월 12일 토요일 오후 5시"), "날짜");
+  assert.ok(hero.includes("2026년 9월 12일 토요일 오후 6시"), "날짜");
   assert.ok(hero.includes('class="photo"'), "사진 박스");
   if (cfg.heroCaption) {
     assert.ok(hero.includes(cfg.heroCaption), "캡션(있을 때 표시)");
@@ -64,6 +64,14 @@ test("render: 일정 섹션에 제목 + 날짜 + 달력(17 강조)", () => {
   assert.ok(s.includes("2026년 9월 12일"), "날짜");
   assert.ok(s.includes('class="cal"'), "달력");
   assert.ok(s.includes('class="cal-d on">12</span>'), "12 강조");
+  assert.ok(!s.includes("사진 촬영"), "공지용엔 사진 촬영 미표시");
+});
+
+test("render: 초대용 일정엔 사진 촬영(오후 5시 15분) 표시, 공지용엔 없음", () => {
+  const invite = loadApp({ search: "?to=invite" }).els.schedule.innerHTML;
+  assert.ok(invite.includes("사진 촬영") && invite.includes("오후 5시 15분"), "초대용 사진 촬영 표시");
+  const pub = loadApp().els.schedule.innerHTML;
+  assert.ok(!pub.includes("사진 촬영"), "공지용엔 사진 촬영 없음");
 });
 
 test("render: 공지용(기본)에서 오시는 길 숨김", () => {

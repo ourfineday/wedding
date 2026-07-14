@@ -17,6 +17,10 @@ test("resolveTheme: url > config > 기본(minimal)", () => {
   assert.strictEqual(Lib.resolveTheme("bogus", "nope"), "minimal", "둘 다 무효→minimal");
 });
 
+test("formatTime: 시각만 한국어 포맷", () => {
+  assert.strictEqual(Lib.formatTime("2026-09-12T18:00:00"), "오후 6시");
+  assert.strictEqual(Lib.formatTime("2026-09-12T17:15:00"), "오후 5시 15분");
+});
 test("formatDate: 예식일 한국어 포맷", () => {
   assert.strictEqual(Lib.formatDate("2026-10-17T13:00:00"), "2026년 10월 17일 토요일 오후 1시");
 });

@@ -127,6 +127,7 @@ section { padding: 48px 28px; text-align: center; }
 
 /* ── 일정(달력) ── */
 .sched-date { margin-bottom: 18px; color: var(--fg, #333); }
+.sched-sub { margin-bottom: 18px; color: var(--muted, #888); font-size: 0.92rem; } /* 사진 촬영(초대용) */
 .cal {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

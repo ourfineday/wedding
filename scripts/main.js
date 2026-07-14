@@ -36,9 +36,16 @@
 
   function renderSchedule() {
     var el = document.getElementById("schedule");
+    // 사진 촬영 시각은 초대용(?to=invite)에만 표시
+    var isInvite = Lib.getAudience(location.search) === "invite";
+    var photo =
+      isInvite && CFG.wedding.photoDatetime
+        ? '<p class="sched-sub">사진 촬영 · ' + Lib.formatTime(CFG.wedding.photoDatetime) + "</p>"
+        : "";
     el.innerHTML =
       '<h2 class="sec-title">예식 안내</h2>' +
       '<p class="sched-date">' + Lib.formatDate(CFG.wedding.datetime) + "</p>" +
+      photo +
       Lib.buildCalendarHTML(CFG.wedding.datetime);
   }
 

@@ -24,16 +24,22 @@
     return "minimal";
   }
 
-  // ISO(로컬 표기) → "2026년 10월 17일 토요일 오후 1시"
-  function formatDate(iso) {
+  // ISO(로컬 표기) → "오후 1시" / "오전 11시 30분"
+  function formatTime(iso) {
     var d = new Date(iso);
     var h = d.getHours();
     var ampm = h < 12 ? "오전" : "오후";
     var h12 = h % 12 === 0 ? 12 : h % 12;
     var min = d.getMinutes();
+    return ampm + " " + h12 + "시" + (min ? " " + min + "분" : "");
+  }
+
+  // ISO(로컬 표기) → "2026년 10월 17일 토요일 오후 1시"
+  function formatDate(iso) {
+    var d = new Date(iso);
     return (
       d.getFullYear() + "년 " + (d.getMonth() + 1) + "월 " + d.getDate() + "일 " +
-      DAYS[d.getDay()] + "요일 " + ampm + " " + h12 + "시" + (min ? " " + min + "분" : "")
+      DAYS[d.getDay()] + "요일 " + formatTime(iso)
     );
   }
 
@@ -159,6 +165,7 @@
   return {
     THEMES: THEMES,
     resolveTheme: resolveTheme,
+    formatTime: formatTime,
     formatDate: formatDate,
     computeDday: computeDday,
     ddayMessage: ddayMessage,
