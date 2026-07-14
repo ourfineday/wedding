@@ -112,10 +112,12 @@
     if (cfg.groom.parents && cfg.bride.parents) {
       var gRel = cfg.groom.rel || "아들";
       var bRel = cfg.bride.rel || "딸";
+      var gName = cfg.groom.given || cfg.groom.name; // 혼주줄은 성 뺀 이름(given) 우선
+      var bName = cfg.bride.given || cfg.bride.name;
       hosts =
         '<div class="hosts">' +
-        '<p><span class="host-p">' + cfg.groom.parents + "</span>의 " + gRel + " <b>" + cfg.groom.name + "</b></p>" +
-        '<p><span class="host-p">' + cfg.bride.parents + "</span>의 " + bRel + " <b>" + cfg.bride.name + "</b></p>" +
+        '<p><span class="host-p">' + cfg.groom.parents + "</span>의 " + gRel + " <b>" + gName + "</b></p>" +
+        '<p><span class="host-p">' + cfg.bride.parents + "</span>의 " + bRel + " <b>" + bName + "</b></p>" +
         "</div>";
     }
     return (

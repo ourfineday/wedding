@@ -89,6 +89,17 @@ test("buildGreetingHTML: 본문 + 혼주(부모님) 표기", () => {
   assert.ok(h.includes("김부·박모") && h.includes("민준"), "신랑 혼주");
   assert.ok(h.includes("이부·최모") && h.includes("서연"), "신부 혼주");
 });
+test("buildGreetingHTML: given(성 뺀 이름) 있으면 혼주줄에 성 없이 표기", () => {
+  const cfg = {
+    greeting: "안녕",
+    groom: { name: "탁성준", given: "성준", parents: "탁부·조모", rel: "외아들" },
+    bride: { name: "김혜린", given: "혜린", parents: "김부·조모", rel: "장녀" },
+  };
+  const h = Lib.buildGreetingHTML(cfg);
+  assert.ok(h.includes("외아들 <b>성준</b>"), "신랑: 서열 + 성 뺀 이름");
+  assert.ok(h.includes("장녀 <b>혜린</b>"), "신부: 서열 + 성 뺀 이름");
+  assert.ok(!h.includes("<b>탁성준</b>") && !h.includes("<b>김혜린</b>"), "혼주줄엔 성 포함 이름 미사용");
+});
 test("buildGreetingHTML: 부모님 없으면 혼주줄 생략(에러 없음)", () => {
   const cfg = { greeting: "안녕", groom: { name: "민준", parents: "" }, bride: { name: "서연", parents: "" } };
   const h = Lib.buildGreetingHTML(cfg);
