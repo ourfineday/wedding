@@ -18,7 +18,10 @@
 
   function renderGreeting() {
     var el = document.getElementById("greeting");
-    el.innerHTML = Lib.buildGreetingHTML(CFG) + Lib.photoHTML(CFG.photos.sub, "사진");
+    // 초대용(?to=invite)은 초대 전용 인사말(greetingInvite), 없으면 공지용(greeting)
+    var isInvite = Lib.getAudience(location.search) === "invite";
+    var greeting = isInvite && CFG.greetingInvite ? CFG.greetingInvite : CFG.greeting;
+    el.innerHTML = Lib.buildGreetingHTML(CFG, greeting) + Lib.photoHTML(CFG.photos.sub, "사진");
   }
 
   function renderDday() {

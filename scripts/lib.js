@@ -112,8 +112,9 @@
   }
 
   // 인사말 섹션 HTML: 제목 + 인사말 본문 + (부모님 있으면) 혼주 표기.
-  function buildGreetingHTML(cfg) {
-    var body = (cfg.greeting || "").replace(/\n/g, "<br />");
+  // greetingText를 주면 그 문구를(초대용 등), 없으면 cfg.greeting을 사용.
+  function buildGreetingHTML(cfg, greetingText) {
+    var body = (greetingText || cfg.greeting || "").replace(/\n/g, "<br />");
     var hosts = "";
     if (cfg.groom.parents && cfg.bride.parents) {
       var gRel = cfg.groom.rel || "아들";

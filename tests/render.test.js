@@ -49,6 +49,19 @@ test("render: 인사말에 제목 + 본문 + 서브 사진 (부모님 성함 있
   assert.ok(g.includes('class="photo"'), "서브 사진");
 });
 
+test("render: 초대용은 greetingInvite / 공지용은 greeting 사용", () => {
+  const inv = loadApp({ search: "?to=invite" });
+  assert.ok(
+    inv.els.greeting.innerHTML.includes(inv.cfg.greetingInvite.split("\n").pop()),
+    "초대용 전용 인사말(마지막 줄)"
+  );
+  const pub = loadApp();
+  assert.ok(
+    pub.els.greeting.innerHTML.includes(pub.cfg.greeting.split("\n").pop()),
+    "공지용 인사말(마지막 줄)"
+  );
+});
+
 test("render: D-Day 배지 + 문구 (라벨 형식)", () => {
   const { els } = loadApp();
   const d = els.dday.innerHTML;
